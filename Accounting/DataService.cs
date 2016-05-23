@@ -12,15 +12,9 @@ namespace Accounting
     public class DataService
     {
         private OleDbConnection conn;
-        public DataService()
-        {
-
-        }
 
         public List<Item> select()
         {
-            
-            //conn = new OleDbConnection(Properties.Settings.Default.AccountingDBConnectionString);
             using (conn = new OleDbConnection(Properties.Settings.Default.AccountingDBConnectionString))
             {
                 conn.Open();
@@ -31,7 +25,7 @@ namespace Accounting
                 while (dr.Read())
                 {
                     items.Add(
-                        new Item(dr.GetInt32(0), dr.GetDateTime(1).ToShortDateString(), dr.GetString(2), dr.GetString(3),
+                        new Item(dr.GetInt32(0), dr.GetDateTime(1), dr.GetString(2), dr.GetString(3),
                         dr.GetInt32(4), dr.GetInt32(5), dr.GetInt32(6), dr.GetString(7)));
                 }
                 return items;

@@ -12,7 +12,7 @@ namespace Accounting
         {
 
         }
-        public Item(string time, string cusName, string itemName, int count, int weight, int price, string note)
+        public Item(DateTime time, string cusName, string itemName, int count, int weight, int price, string note)
         {
             this.time = time;
             this.cusName = cusName;
@@ -22,7 +22,7 @@ namespace Accounting
             this.price = price;
             this.note = note;
         }
-        public Item(int id, string time, string cusName, string itemName, int count, int weight, int price, string note) {
+        public Item(int id, DateTime time, string cusName, string itemName, int count, int weight, int price, string note) {
             this.id = id;
             this.time = time;
             this.cusName = cusName;
@@ -33,7 +33,7 @@ namespace Accounting
             this.note = note;
         }
         public int id { get; set; }
-        public string time { get; set; }
+        public DateTime time { get; set; }
         public string cusName { get; set; }
         public string itemName { get; set; }
         public int count { get; set; }
