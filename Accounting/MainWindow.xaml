@@ -5,8 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Accounting"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="533" Width="451" Loaded="Window_Loaded">
     <Grid>
-        
+        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="232" Width="414" RowHeaderWidth="0" IsReadOnly="True" AutoGeneratingColumn="dataGrid_AutoGeneratingColumn"/>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="246" Margin="10,247,0,0" Stroke="Black" VerticalAlignment="Top" Width="170"/>
+        <Label x:Name="label_CusName" Content="姓名" HorizontalAlignment="Left" Margin="10,256,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_ItemName" Content="品名" HorizontalAlignment="Left" Margin="10,287,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Count" Content="件數" HorizontalAlignment="Left" Margin="10,318,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Weight" Content="重量" HorizontalAlignment="Left" Margin="10,349,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Price" Content="單價" HorizontalAlignment="Left" Margin="10,380,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Note" Content="備註" HorizontalAlignment="Left" Margin="10,411,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_CusName" HorizontalAlignment="Left" Height="23" Margin="49,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="textBox_Count" HorizontalAlignment="Left" Height="23" Margin="49,321,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="textBox_Weight" HorizontalAlignment="Left" Height="23" Margin="49,352,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="textBox_Price" HorizontalAlignment="Left" Height="23" Margin="49,383,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="textBox_Note" HorizontalAlignment="Left" Height="23" Margin="49,411,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="button_Insert" Content="新增" HorizontalAlignment="Left" Margin="44,442,0,0" VerticalAlignment="Top" Width="95" Height="33" FontSize="16" Click="button_Insert_Click"/>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="246" Margin="185,247,0,0" Stroke="Black" VerticalAlignment="Top" Width="176"/>
+        <Button x:Name="button_Select" Content="查詢" HorizontalAlignment="Left" Margin="217,442,0,0" VerticalAlignment="Top" Width="95" Height="33" FontSize="16" Click="button_Select_Click"/>
+        <Label x:Name="label_Select_CusName" Content="姓名" HorizontalAlignment="Left" Margin="185,256,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Select_Time" Content="時間" HorizontalAlignment="Left" Margin="185,287,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_Select_CusName" HorizontalAlignment="Left" Height="23" Margin="224,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <DatePicker x:Name="datePicker_Start" HorizontalAlignment="Left" Margin="224,288,0,0" VerticalAlignment="Top" Width="100"/>
+        <Label x:Name="label" Content="至" HorizontalAlignment="Left" Margin="252,321,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="datePicker_End" HorizontalAlignment="Left" Margin="224,352,0,0" VerticalAlignment="Top" Width="100"/>
+        <Button x:Name="button_Print" Content="列印" HorizontalAlignment="Left" Margin="366,248,0,0" VerticalAlignment="Top" Width="61" Height="34" FontSize="16" Click="button_Print_Click"/>
+        <ComboBox x:Name="comboBox_ItemName" HorizontalAlignment="Left" Margin="49,291,0,0" VerticalAlignment="Top" Width="120"/>
+
     </Grid>
 </Window>
