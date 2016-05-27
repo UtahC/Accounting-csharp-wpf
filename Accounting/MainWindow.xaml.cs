@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,6 +46,7 @@ namespace Accounting
             if (item != null)
                 dataService.insert(item);
             updateDataGrid(dataService.select());
+            setTextNull();
         }
 
         private void button_Select_Click(object sender, RoutedEventArgs e)
@@ -58,6 +60,12 @@ namespace Accounting
         private void button_Print_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Item item = (Item)dataGrid.SelectedItem;
+            setTextByItem(item);
         }
 
         private void windowInit()
@@ -116,5 +124,29 @@ namespace Accounting
             }
             return item;
         }
+
+        private void setTextByItem(Item item)
+        {
+            if (item != null)
+            {
+                textBox_CusName.Text = item.cusName;
+                comboBox_ItemName.SelectedValue = item.itemName;
+                textBox_Count.Text = item.count.ToString();
+                textBox_Price.Text = item.price.ToString();
+                textBox_Weight.Text = item.weight.ToString();
+                textBox_Note.Text = item.note;
+            }
+        }
+
+        private void setTextNull()
+        {
+            textBox_CusName.Text = "";
+            comboBox_ItemName.SelectedIndex = -1;
+            textBox_Count.Text = "";
+            textBox_Price.Text = "";
+            textBox_Weight.Text = "";
+            textBox_Note.Text = "";
+        }
+        
     }
 }

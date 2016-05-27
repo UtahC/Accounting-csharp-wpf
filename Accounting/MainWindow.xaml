@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="533" Width="451" Loaded="Window_Loaded">
     <Grid>
-        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="232" Width="414" RowHeaderWidth="0" IsReadOnly="True" AutoGeneratingColumn="dataGrid_AutoGeneratingColumn"/>
+        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="232" Width="414" RowHeaderWidth="0" IsReadOnly="True" AutoGeneratingColumn="dataGrid_AutoGeneratingColumn" SelectionChanged="dataGrid_SelectionChanged"/>
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="246" Margin="10,247,0,0" Stroke="Black" VerticalAlignment="Top" Width="170"/>
         <Label x:Name="label_CusName" Content="姓名" HorizontalAlignment="Left" Margin="10,256,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label_ItemName" Content="品名" HorizontalAlignment="Left" Margin="10,287,0,0" VerticalAlignment="Top"/>
