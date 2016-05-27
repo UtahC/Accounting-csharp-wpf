@@ -21,7 +21,7 @@ namespace Accounting.Tests
         [TestMethod()]
         public void insertTest()
         {
-            Item item = new Item("2016/5/22", "cusname", "itemname", 5, 10, 15, "note");
+            Item item = new Item(DateTime.Now, "cusname", "itemname", 5, 10, 15, "note");
             Assert.AreEqual(true, dataService.insert(item));
         }
 
@@ -34,7 +34,7 @@ namespace Accounting.Tests
         [TestMethod()]
         public void updateTest()
         {
-            Item item = new Item("2016/5/22", "cusname", "itemname", 5, 10, 15, "note");
+            Item item = new Item(DateTime.Now, "cusname", "itemname", 5, 10, 15, "note");
             Assert.AreEqual(true, dataService.update(1, item));
         }
     }

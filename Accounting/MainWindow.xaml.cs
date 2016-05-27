@@ -44,6 +44,7 @@ namespace Accounting
             Item item = makeItemByInput();
             if (item != null)
                 dataService.insert(item);
+            updateDataGrid();
         }
 
         private void button_Select_Click(object sender, RoutedEventArgs e)
