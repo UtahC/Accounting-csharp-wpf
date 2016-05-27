@@ -13,13 +13,32 @@ namespace Accounting
     {
         private OleDbConnection conn;
 
-        public List<Item> select()
+        public List<Item> select(string cusName, DateTime? start, DateTime? end)
         {
+            bool isCusNameValid = (cusName != "");
+            bool isDateTimeBothValid = (start.HasValue && end.HasValue);
             using (conn = new OleDbConnection(Properties.Settings.Default.AccountingDBConnectionString))
             {
+                OleDbCommand comm = new OleDbCommand("", conn);
+                comm.CommandText = @"SELECT * FROM Accounting";
+                if (isCusNameValid || isDateTimeBothValid)
+                {
+                    comm.CommandText += " WHERE ";
+                    if (isCusNameValid)
+                    {
+                        comm.CommandText += "姓名 = @cusName";
+                        comm.Parameters.AddWithValue("@cusName", cusName);
+                    }
+                    if (isCusNameValid && isDateTimeBothValid)
+                        comm.CommandText += " AND ";
+                    if (isDateTimeBothValid)
+                    {
+                        comm.CommandText += "日期 BETWEEN @start AND @end";
+                        comm.Parameters.AddWithValue("@start", getDateTimeWithoutHMS(start.Value));
+                        comm.Parameters.AddWithValue("@end", getDateTimeWithoutHMS(end.Value));
+                    } 
+                }
                 conn.Open();
-                OleDbCommand comm = new OleDbCommand(
-                    @"SELECT * FROM Accounting;", conn);
                 OleDbDataReader dr = comm.ExecuteReader();
                 List<Item> items = new List<Item>();
                 while (dr.Read())
@@ -30,6 +49,11 @@ namespace Accounting
                 }
                 return items;
             }
+        }
+
+        public List<Item> select()
+        {
+            return select("", null, null);
         }
 
         public bool insert(Item item)

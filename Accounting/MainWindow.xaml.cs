@@ -21,7 +21,7 @@ namespace Accounting
     /// </summary>
     public partial class MainWindow : Window
     {
-        DataService dataService;
+        DataService dataService = new DataService();
 
         public MainWindow()
         {
@@ -44,12 +44,15 @@ namespace Accounting
             Item item = makeItemByInput();
             if (item != null)
                 dataService.insert(item);
-            updateDataGrid();
+            updateDataGrid(dataService.select());
         }
 
         private void button_Select_Click(object sender, RoutedEventArgs e)
         {
-
+            string cusName = textBox_Select_CusName.Text.Replace(" ","");
+            DateTime? start = datePicker_Start.SelectedDate;
+            DateTime? end = datePicker_End.SelectedDate;
+            updateDataGrid(dataService.select(cusName, start, end));
         }
 
         private void button_Print_Click(object sender, RoutedEventArgs e)
@@ -60,7 +63,7 @@ namespace Accounting
         private void windowInit()
         {
             itemNameInit();
-            updateDataGrid();
+            updateDataGrid(dataService.select());
         }
 
         private void itemNameInit()
@@ -77,10 +80,8 @@ namespace Accounting
             comboBox_ItemName.ItemsSource = list;
         }
 
-        private void updateDataGrid()
+        private void updateDataGrid(List<Item> items)
         {
-            dataService = new DataService();
-            List<Item> items = dataService.select();
             dataGrid.ItemsSource = items;
             dataGrid.Columns[0].Header = "編號";
             dataGrid.Columns[1].Header = "日期";
