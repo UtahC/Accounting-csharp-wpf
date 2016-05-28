@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Windows;
 
 namespace Accounting
 {
@@ -57,7 +58,6 @@ namespace Accounting
             PdfPage page = pages[pageNumber - 1];
             // Get an XGraphics object for drawing
             XGraphics gfx = gfxes[pageNumber - 1];
-            //XTextFormatter tf = new XTextFormatter(gfx);
             // Create a font
             XPdfFontOptions options = new XPdfFontOptions(PdfFontEncoding.Unicode, PdfFontEmbedding.Always);
             XFont font = new XFont("標楷體", (int)size, XFontStyle.Bold, options);
@@ -66,6 +66,20 @@ namespace Accounting
             gfx.DrawString(text, font, XBrushes.Black,
             new XRect(10, nowY[pageNumber - 1], page.Width - 20, (int)size), format);
             nowY[pageNumber - 1] = nowY[pageNumber - 1] + (int)size + 2;
+            if (isTitle)
+                nowY[pageNumber - 1] = nowY[pageNumber - 1] + 10;
+        }
+
+        public void drawLine(int pageNumber)
+        {
+            nowY[pageNumber - 1] = nowY[pageNumber - 1] + 5;
+            XPen pen = new XPen(XColor.FromKnownColor(XKnownColor.Black));
+            PdfPage page = pages[pageNumber - 1];
+            // Get an XGraphics object for drawing
+            XGraphics gfx = gfxes[pageNumber - 1];
+            gfx.DrawLine(pen, new Point(10, nowY[pageNumber - 1]), 
+                              new Point(page.Width - 10, nowY[pageNumber - 1]));
+            nowY[pageNumber - 1] = nowY[pageNumber - 1] + 8;
         }
 
         public void print(string fileName)

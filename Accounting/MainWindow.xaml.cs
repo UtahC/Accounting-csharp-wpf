@@ -73,6 +73,7 @@ namespace Accounting
                 printer.drawTextLine(i + 1, string.Format(
                     "{0,8}{1,11}{2,8}{3,8}{4,8}{5,8}{6,8}", 
                     "日期", "品名", "件數", "重量", "單價", "小計", "備註"), Size.Small);
+                printer.drawLine(i + 1);
                 foreach (Item item in _items.Where(item => item.cusName == cusName))
                 {
                     int sumPrice = item.price * item.weight;
@@ -82,6 +83,7 @@ namespace Accounting
                         item.time.ToShortDateString(), item.itemName, 
                         item.count, item.weight, item.price, sumPrice, item.note), Size.Small);
                 }
+                printer.drawLine(i + 1);
                 printer.drawTextLine(i + 1, "總計: " + totalPrice, Size.Medium);
             }
             printer.print("Accounting.pdf");
