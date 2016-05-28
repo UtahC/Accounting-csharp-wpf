@@ -59,7 +59,7 @@ namespace Accounting
 
         private void button_Print_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
