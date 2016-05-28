@@ -15,6 +15,7 @@ namespace Accounting
         Medium = 16,
         Large = 20
     }
+
     public class PdfPrinter
     {
         private PdfDocument document;
@@ -48,19 +49,25 @@ namespace Accounting
 
         public void drawTextLine(int pageNumber, string text, Size size)
         {
+            drawTextLine(pageNumber, text, size, false);
+        }
+
+        public void drawTextLine(int pageNumber, string text, Size size, bool isTitle)
+        {
             PdfPage page = pages[pageNumber - 1];
             // Get an XGraphics object for drawing
             XGraphics gfx = gfxes[pageNumber - 1];
-            XTextFormatter tf = new XTextFormatter(gfx);
+            //XTextFormatter tf = new XTextFormatter(gfx);
             // Create a font
             XPdfFontOptions options = new XPdfFontOptions(PdfFontEncoding.Unicode, PdfFontEmbedding.Always);
             XFont font = new XFont("標楷體", (int)size, XFontStyle.Bold, options);
             // Draw the text
-            tf.DrawString(text, font, XBrushes.Black,
-            new XRect(10, nowY[pageNumber - 1], page.Width - 20, (int)size), XStringFormats.TopLeft);
+            XStringFormat format = isTitle ? XStringFormats.TopCenter : XStringFormats.TopLeft;
+            gfx.DrawString(text, font, XBrushes.Black,
+            new XRect(10, nowY[pageNumber - 1], page.Width - 20, (int)size), format);
             nowY[pageNumber - 1] = nowY[pageNumber - 1] + (int)size + 2;
         }
-        
+
         public void print(string fileName)
         {
             // Save the document...

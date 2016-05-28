@@ -23,6 +23,7 @@ namespace Accounting
     public partial class MainWindow : Window
     {
         DataService dataService = new DataService();
+        List<Item> _items;
 
         public MainWindow()
         {
@@ -59,7 +60,31 @@ namespace Accounting
 
         private void button_Print_Click(object sender, RoutedEventArgs e)
         {
-            
+            PdfPrinter printer = new PdfPrinter();
+            HashSet<string> cusNames = new HashSet<string>();
+            foreach(Item item in _items)
+                cusNames.Add(item.cusName);
+            printer.setPageCount(cusNames.Count);
+            for (int i = 0; i < cusNames.Count; i++)
+            {
+                string cusName = cusNames.ToList()[i];
+                int totalPrice = 0;
+                printer.drawTextLine(i + 1, cusName, Size.Large, true);
+                printer.drawTextLine(i + 1, string.Format(
+                    "{0,8}{1,11}{2,8}{3,8}{4,8}{5,8}{6,8}", 
+                    "日期", "品名", "件數", "重量", "單價", "小計", "備註"), Size.Small);
+                foreach (Item item in _items.Where(item => item.cusName == cusName))
+                {
+                    int sumPrice = item.price * item.weight;
+                    totalPrice = totalPrice + sumPrice;
+                    printer.drawTextLine(i + 1, string.Format(
+                        "{0,10}{1,10}{2,10}{3,10}{4,10}{5,10}{6,10}", 
+                        item.time.ToShortDateString(), item.itemName, 
+                        item.count, item.weight, item.price, sumPrice, item.note), Size.Small);
+                }
+                printer.drawTextLine(i + 1, "總計: " + totalPrice, Size.Medium);
+            }
+            printer.print("Accounting.pdf");
         }
 
         private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -90,7 +115,8 @@ namespace Accounting
 
         private void updateDataGrid(List<Item> items)
         {
-            dataGrid.ItemsSource = items;
+            _items = items;
+            dataGrid.ItemsSource = _items;
             dataGrid.Columns[0].Header = "編號";
             dataGrid.Columns[1].Header = "日期";
             dataGrid.Columns[2].Header = "姓名";
@@ -115,13 +141,10 @@ namespace Accounting
                 MessageBox.Show("請數入數字");
                 return null;
             }
-            finally
-            {
-                item.cusName = textBox_CusName.Text;
-                item.itemName = comboBox_ItemName.SelectedItem.ToString();
-                item.time = DateTime.Now;
-                item.note = textBox_Note.Text;
-            }
+            item.cusName = textBox_CusName.Text;
+            item.itemName = comboBox_ItemName.SelectedItem.ToString();
+            item.time = DateTime.Now;
+            item.note = textBox_Note.Text;
             return item;
         }
 
